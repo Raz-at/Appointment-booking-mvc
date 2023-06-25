@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "delete_msg";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<br/>
+<br/>
+<div class="alert alert-success">
+    @ViewBag.message
+</div>
+<div>
+    @Html.ActionLink("View List", "view_message", new { email = @ViewBag.email })
+</div>

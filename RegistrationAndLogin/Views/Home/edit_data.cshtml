@@ -1,0 +1,74 @@
+﻿@model List<RegistrationAndLogin.Models.message>
+
+@{
+    ViewBag.Title = "edit_data";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<h2>edit your data </h2>
+
+@foreach (var message in Model)
+{
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => message.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => message.EmailID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => message.EmailID,
+                          new { htmlAttributes = new { @class = "form-control",
+                          @Value = @HttpContext.Current.User.Identity.Name, @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => message.EmailID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => message.From, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => message.From, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => message.From, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => message.To, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => message.To, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => message.To, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => message.Message1, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" name="file"  id="file " />
+                    @Html.ValidationMessageFor(model => message.Message1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => message.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => message.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => message.EndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

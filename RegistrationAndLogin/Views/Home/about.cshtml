@@ -1,0 +1,130 @@
+﻿@model RegistrationAndLogin.Models.message
+
+@{
+    /**/
+
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<br />
+@if (ViewBag.message != null)
+{
+    <div class="alert alert-success">
+        <strong>Success!</strong>>@ViewBag.message
+    </div>
+    <div>
+        @Html.ActionLink("View List", "user_view", new { email = HttpContext.Current.User.Identity.Name })
+    </div>
+}
+
+else
+{
+    if (Request.IsAuthenticated)
+    {
+        <h2>Send Detail</h2>
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmailID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EmailID,
+                new
+                {
+                    htmlAttributes = new
+                    {
+                        @class = "form-control",
+                        @Value = @HttpContext.Current.User.Identity.Name,
+                        @readonly = "readonly"
+                    }
+                })
+                        @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.From, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.From, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.From, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.To, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.To, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.To, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Message1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="file" name="file" id="file " />
+                        @Html.ValidationMessageFor(model => model.Message1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        <br />
+        <br />
+        if (HttpContext.Current.User.Identity.Name == "sunshine_appointment@outlook.com")
+        {
+            <div>
+                @Html.ActionLink("View List", "Dashboard")
+            </div>
+        }
+        else
+        {
+            <div>
+                @Html.ActionLink("View List", "user_view", new { email = HttpContext.Current.User.Identity.Name })
+            </div>
+        }
+
+    }
+
+
+    else
+    {
+        <div class="container">
+            <h1>Contact Us</h1>
+
+            <span>You contact us through the email address below or register to book appointment.</span><br />
+            <br><p><a href="mailto:sunshine_appointment@outlook.com">sunshine_appointment@outlook.com</a></p>
+        </div>
+    }
+
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

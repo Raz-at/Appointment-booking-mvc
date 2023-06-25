@@ -1,0 +1,132 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sunshine Appointment</title>
+
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <link href="~/Content/css/carousel.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+
+
+    <link href="~/Content/assets/header-basic-light.css" rel="stylesheet" />
+    <link href="~/Content/assets/demo.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <header class="header-basic-light">
+
+        <div class="header-limiter">
+
+            <h1>@Html.ActionLink("Sunshine Appointment", "Home", "Home")</h1>
+            @if (User.Identity.Name == "sunshine_appointment@outlook.com")
+            {
+                @Html.ActionLink("Admin Control", "index", "Home", null, new { onclick = "return confirm('Are you sure you want to logout as Admin?');" })
+
+            }
+
+
+
+            <nav>
+
+                @Html.ActionLink("Home", "Home", "Home")
+                @Html.ActionLink("Contact", "about", "Home")
+                @Html.ActionLink("About", "Contact", "Home")
+
+                @if (User.Identity.Name == "sunshine_appointment@outlook.com")
+                {
+                    @Html.ActionLink("Dashboard", "Dashboard", "home")
+                }
+                else
+                {
+                    if (Request.IsAuthenticated)
+                    {
+                        @Html.ActionLink(User.Identity.Name, "Index", "home")
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Register", "Registration", "user")
+                        @Html.ActionLink("Login", "Login", "User")
+                    }
+                }
+
+            </nav>
+
+        </div>
+
+    </header>
+    <main>
+
+        <div class="container body-content">
+            @RenderBody()
+            
+
+        </div>
+
+        <footer class="footer-16371">
+            <div class="container">
+                <div class="row justify-content-center ">
+                    <div class="col-md-9  text-center">
+                        <div class="footer-site-logo mb-4">
+                            @Html.ActionLink("Sunshine Appointment", "Home", "Home")
+                        </div>
+                        <ul class="list-unstyled nav-links mb-5">
+                            <li>@Html.ActionLink("About", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Services", "service", "Home")</li>
+
+
+                            @if (User.Identity.Name == "sunshine_appointment@outlook.com")
+                                {
+                                    <li>@Html.ActionLink("Dashboard", "Dashboard", "home")</li>
+                                }
+                            else
+                            {
+                                if (Request.IsAuthenticated)
+                                    {
+                                        <li>@Html.ActionLink(User.Identity.Name, "user_view", "home", new { email = User.Identity.Name })</li>
+                                    }
+                                else
+                                    {
+                                        <li>@Html.ActionLink("Register", "register", "user")</li>
+                                        <li>@Html.ActionLink("Login", "login", "user")</li>
+                                    }
+                            }
+
+
+
+                            <li>@Html.ActionLink("Contact", "about", "Home")</li>
+                        </ul>
+
+@*                        <div class="social mb-4">
+                            <h3>Stay in touch</h3>
+                            <ul class="list-unstyled">
+                                <li class="in"><a href="#"><span class="icon-instagram"></span></a></li>
+                                <li class="fb"><a href="#"><span class="icon-facebook"></span></a></li>
+                                <li class="tw"><a href="#"><span class="icon-twitter"></span></a></li>
+                            </ul>
+                        </div> *@
+
+                        <div class="copyright">
+                            <p class="mb-0">&copy;@DateTime.Now.Year<small> Sunshine Appointment</small></p>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+    </main>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+﻿
+@{
+   ViewBag.Title = "Index";
+}
+
+<h2>Sunshine Appointment</h2>
+
+Welcome @HttpContext.Current.User.Identity.Name
+
+@if(Request.IsAuthenticated)
+{
+    using (Html.BeginForm("logout", "user", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+    }
+}
+
